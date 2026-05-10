@@ -1,0 +1,65 @@
+.delete-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.delete-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 14px;
+  max-width: 720px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  color: #111827;
+}
+
+.delete-card h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #ef4444;
+}
+
+.delete-card p {
+  font-size: 16px;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.delete-card ul {
+  margin: 10px 0 20px 20px;
+}
+
+.delete-card li {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.warning-box {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.contact {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.delete-card a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.delete-card a:hover {
+  text-decoration: underline;
+}
