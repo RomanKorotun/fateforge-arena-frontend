@@ -1,0 +1,75 @@
+.auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.auth-btn {
+  width: 320px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+
+  color: white;
+}
+
+.auth-btn svg {
+  font-size: 20px;
+}
+
+/* обычные */
+
+.signup-btn {
+  background: #111;
+}
+
+.signin-btn {
+  background: #444;
+}
+
+.signup-btn:hover,
+.signin-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* social */
+
+.google-btn {
+  background: #db4437;
+}
+
+.facebook-btn {
+  background: #1877f2;
+}
+
+.linkedin-btn {
+  background: #0a66c2;
+}
+
+.discord-btn {
+  background: #5865f2;
+}
+
+.google-btn:hover,
+.facebook-btn:hover,
+.linkedin-btn:hover,
+.discord-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}

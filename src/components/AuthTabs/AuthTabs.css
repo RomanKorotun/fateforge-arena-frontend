@@ -1,0 +1,30 @@
+.auth-tabs {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  display: flex;
+  gap: 10px;
+}
+
+.auth-tab {
+  background: transparent;
+  border: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  color: rgba(0, 0, 0, 0.4);
+  transition: 0.2s;
+}
+
+.auth-tab:hover {
+  color: black;
+}
+
+.auth-tab.active {
+  color: black;
+  font-weight: 700;
+}

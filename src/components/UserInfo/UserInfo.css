@@ -1,0 +1,137 @@
+.user-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  word-break: break-all;
+}
+
+.user-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-top: 10px;
+  border-top: 1px solid #e6e6e6;
+}
+
+/* buttons */
+.settings-btn {
+  background: transparent;
+  border: none;
+  color: #1677ff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  transition: 0.2s ease;
+}
+
+.settings-btn:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #ff4d4f;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.header-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  margin-bottom: 10px;
+}
+
+/* аватар справа */
+.header-avatar {
+  position: absolute;
+  right: 0;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.avatar-wrap {
+  position: absolute;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+/* avatar */
+.header-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+/* overlay */
+.avatar-hover {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  opacity: 0;
+  transition: 0.2s ease;
+
+  pointer-events: none;
+  text-align: center;
+}
+
+/* hover effect */
+.avatar-wrap:hover .avatar-hover {
+  opacity: 1;
+}
+
+.avatar-wrap:hover .header-avatar {
+  filter: brightness(0.6);
+}
+
+.header-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}

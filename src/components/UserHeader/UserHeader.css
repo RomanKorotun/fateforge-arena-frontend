@@ -1,0 +1,35 @@
+.user-files-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.left {
+  flex: 1;
+}
+
+.right {
+  flex: 1;
+}
+
+.user-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.user-label {
+  display: block;
+  font-size: 13px;
+  color: #555;
+}
+
+.user-value {
+  font-size: 16px;
+  font-weight: bold;
+}

@@ -1,0 +1,36 @@
+.users-list {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.users-title {
+  margin-bottom: 15px;
+  color: #222;
+  font-size: 18px;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-thead {
+  background: #f5f5f5;
+}
+
+.users-th {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.users-th:last-child {
+  text-align: center;
+}
+
+.users-tbody {
+  background: #fff;
+}

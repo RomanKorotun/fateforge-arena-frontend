@@ -1,0 +1,107 @@
+.deposit-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.deposit-modal {
+  width: 420px;
+
+  background: #1a1a1a;
+
+  border-radius: 18px;
+
+  padding: 24px;
+
+  color: white;
+}
+
+.deposit-modal h2 {
+  margin-bottom: 24px;
+}
+
+.deposit-group {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 18px;
+}
+
+.deposit-group label {
+  margin-bottom: 8px;
+
+  font-size: 14px;
+
+  color: #aaa;
+}
+
+.provider-box,
+.deposit-select,
+.deposit-input {
+  width: 100%;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  border: 1px solid #333;
+
+  background: #111;
+
+  color: white;
+
+  font-size: 15px;
+
+  box-sizing: border-box;
+}
+
+.deposit-input:focus,
+.deposit-select:focus {
+  outline: none;
+
+  border-color: #4d7cff;
+}
+
+.deposit-actions {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+.deposit-btn,
+.close-btn {
+  flex: 1;
+
+  border: none;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+.deposit-btn {
+  background: #4d7cff;
+
+  color: white;
+}
+
+.close-btn {
+  background: #2a2a2a;
+
+  color: white;
+}

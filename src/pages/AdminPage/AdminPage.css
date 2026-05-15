@@ -1,0 +1,83 @@
+.admin-page {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  font-family: Arial, sans-serif;
+
+  overflow-x: hidden;
+}
+
+.admin-header {
+  width: 100%;
+  background: #fff;
+
+  padding: 20px;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.admin-content {
+  width: 100%;
+  background: #fff;
+
+  padding: 20px;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.admin-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.admin-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* TABLE */
+.table {
+  width: 100%;
+  max-width: 100%;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+
+  border-bottom: 1px solid #eee;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table th {
+  background: #f7f7f7;
+  font-weight: 600;
+}
+
+.table tr:hover {
+  background: #f9fafb;
+}
+
+.table select,
+.table input,
+.table button {
+  font-family: inherit;
+}
+
+.table button {
+  cursor: pointer;
+}

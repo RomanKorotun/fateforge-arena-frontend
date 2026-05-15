@@ -1,0 +1,299 @@
+/* .dashboard-page {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #f5f6f8;
+
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 1100px;
+  padding: 20px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  min-height: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  height: 100%;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.balance {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin-top: 4px;
+}
+
+.wallet-text {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.payment-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.payment-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.payment-btn:hover {
+  background: #f0f0f0;
+  border-color: #cfcfcf;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+} */
+
+.dashboard-page {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #f5f6f8;
+
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+}
+
+/* GRID */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+
+  margin-bottom: 20px;
+}
+
+/* CARD */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 180px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  height: 100%;
+}
+
+/* TITLE */
+.card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* ROW */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 14px;
+  color: #333;
+}
+
+/* BALANCE */
+.balance {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+
+  margin-top: 4px;
+}
+
+/* TEXT */
+.wallet-text {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+/* PAYMENT BUTTONS */
+.payment-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: auto;
+}
+
+.payment-btn {
+  border: 1px solid #dcdcdc;
+  background: white;
+
+  border-radius: 8px;
+
+  padding: 10px 16px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.payment-btn:hover {
+  background: #f0f0f0;
+  border-color: #cfcfcf;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================= */
+/* USERS SECTION (NEW ONLY)  */
+/* ========================= */
+
+.users-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  margin-top: 20px;
+}
+
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+.users-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.users-header span {
+  font-size: 13px;
+  color: #777;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+  border-radius: 10px;
+
+  background: #f9fafb;
+  border: 1px solid #eee;
+}
+
+.user-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-pos {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background: #111;
+  color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 700;
+}
+
+.user-name {
+  font-weight: 700;
+  color: #222;
+}
+
+.user-meta {
+  font-size: 12px;
+  color: #777;
+  margin-top: 3px;
+}
+
+.user-right {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}

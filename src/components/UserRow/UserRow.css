@@ -1,0 +1,24 @@
+.users-tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.users-tr:hover {
+  background-color: #f0f8ff;
+  transition: background-color 0.2s ease;
+}
+
+.users-td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.users-actions {
+  display: flex;
+  gap: 10px;
+  min-width: 160px;
+  justify-content: center;
+}
