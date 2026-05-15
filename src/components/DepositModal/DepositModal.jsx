@@ -224,6 +224,7 @@ const DepositModal = ({ isOpen, onClose, provider, currencies, walletId }) => {
       );
 
       setCheckout(res);
+      handleClose();
     } catch (e) {
       console.error(e);
       setError("Помилка створення платежу");
