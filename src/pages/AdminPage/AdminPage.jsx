@@ -94,7 +94,6 @@ const AdminPage = () => {
                 <th>Email</th>
                 <th>Role</th>
                 <th>Status</th>
-                <th>Quota</th>
                 <th>Action</th>
               </tr>
             </thead>
