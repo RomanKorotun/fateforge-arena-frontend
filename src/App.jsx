@@ -31,6 +31,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import BlockedPage from "./pages/BlockedPage/BlockedPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import DataDeletionPolicyPage from "./pages/DataDeletionPolicyPage/DataDeletionPolicyPage";
+import RoulettePage from "./pages/RoulettePage/RoulettePage";
+import CreateRouletteGamePage from "./pages/CreateRouletteGamePage/CreateRouletteGamePage";
 
 import { authStore } from "./store/authStore";
 
@@ -78,6 +80,11 @@ const App = () => {
         <Route element={<UserRoute />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="dashboard/settings" element={<SettingsPage />} />
+          <Route path="dashboard/roulette" element={<RoulettePage />} />
+          <Route
+            path="dashboard/roulette/game/:sessionId"
+            element={<CreateRouletteGamePage />}
+          />
         </Route>
 
         {/* ADMIN */}

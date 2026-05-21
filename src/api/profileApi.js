@@ -27,3 +27,27 @@ export const getPublicUsers = async () => {
   const { data } = await apiClient.get("/users");
   return data;
 };
+
+// create seed
+export const createClientSeed = async (clientSeed) => {
+  const { data } = await apiClient.post("/users/me/client-seed", {
+    clientSeed,
+  });
+
+  return data;
+};
+
+// update seed
+export const updateClientSeed = async (clientSeed) => {
+  const { data } = await apiClient.put("/users/me/client-seed", {
+    clientSeed,
+  });
+
+  return data;
+};
+
+// ✅ GET seed
+export const getClientSeed = async () => {
+  const { data } = await apiClient.get("/users/me/client-seed");
+  return data;
+};

@@ -1,101 +1,8 @@
-/* .dashboard-page {
-  width: 100%;
-  min-height: 100vh;
-
-  background: #f5f6f8;
-
-  display: flex;
-  justify-content: center;
-}
-
-.dashboard-container {
-  width: 100%;
-  max-width: 1100px;
-  padding: 20px;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: stretch;
-}
-
-.card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  min-height: 180px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-
-  gap: 12px;
-
-  height: 100%;
-}
-
-.card h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: #222;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  color: #333;
-}
-
-.balance {
-  font-size: 26px;
-  font-weight: 700;
-  color: #111;
-  margin-top: 4px;
-}
-
-.wallet-text {
-  font-size: 13px;
-  color: #666;
-  margin: 0;
-}
-
-.payment-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: auto;
-}
-
-.payment-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: auto;
-}
-
-.payment-btn:hover {
-  background: #f0f0f0;
-  border-color: #cfcfcf;
-}
-
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-} */
-
+/* ===== DASHBOARD PAGE ===== */
 .dashboard-page {
   width: 100%;
   min-height: 100vh;
-
   background: #f5f6f8;
-
   display: flex;
   justify-content: center;
 }
@@ -106,34 +13,28 @@
   padding: 20px;
 }
 
-/* GRID */
+/* ===== GRID ===== */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   align-items: stretch;
-
   margin-bottom: 20px;
 }
 
-/* CARD */
+/* ===== CARD ===== */
 .card {
   background: #fff;
   border-radius: 12px;
   padding: 20px;
   min-height: 180px;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
   display: flex;
   flex-direction: column;
-
   gap: 12px;
-
   height: 100%;
 }
 
-/* TITLE */
 .card h3 {
   margin: 0;
   font-size: 18px;
@@ -141,57 +42,49 @@
   color: #222;
 }
 
-/* ROW */
+/* ===== ROW ===== */
 .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   font-size: 14px;
   color: #333;
 }
 
-/* BALANCE */
+/* ===== BALANCE ===== */
 .balance {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 22px; /* зменшено з 28px */
+  font-weight: 600; /* було 700 */
   color: #111;
-
-  margin-top: 4px;
+  margin-top: 2px;
+  margin-bottom: 4px;
 }
 
-/* TEXT */
+/* ===== WALLET TEXT ===== */
 .wallet-text {
-  font-size: 13px;
+  font-size: 12px; /* було 13px */
   color: #666;
-  margin: 0;
+  margin: 0 0 4px 0;
 }
 
-/* PAYMENT BUTTONS */
+/* ===== PAYMENT BUTTONS ===== */
 .payment-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-
   gap: 10px;
-
-  margin-top: auto;
+  margin-top: 4px;
 }
 
 .payment-btn {
   border: 1px solid #dcdcdc;
-  background: white;
-
+  background: #fff;
   border-radius: 8px;
-
-  padding: 10px 16px;
-
+  padding: 8px 14px; /* трохи менше */
   cursor: pointer;
-
   transition: 0.2s ease;
-
-  font-size: 14px;
+  font-size: 13px; /* було 14px */
   font-weight: 600;
 }
 
@@ -200,24 +93,89 @@
   border-color: #cfcfcf;
 }
 
-/* RESPONSIVE */
+/* ===== WALLETS LIST ===== */
+.wallets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* було 15px */
+}
+
+.wallet-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px; /* було 15px */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* було 12px */
+}
+
+/* ===== GAMES LIST ===== */
+.games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.game-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: 0.2s ease;
+}
+
+.game-item:hover {
+  background: #f0f0f0;
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.game-icon {
+  font-size: 22px;
+}
+
+.game-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+}
+
+.game-btn {
+  background: #4cafef;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px; /* трохи менше */
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.game-btn:hover {
+  background: #3a9bd9;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* ========================= */
-/* USERS SECTION (NEW ONLY)  */
-/* ========================= */
-
+/* ===== USERS SECTION ===== */
 .users-section {
   background: #fff;
   border-radius: 12px;
   padding: 20px;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
   margin-top: 20px;
 }
 
@@ -225,7 +183,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin-bottom: 15px;
 }
 
@@ -250,12 +207,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 12px;
   border-radius: 10px;
-
-  background: #f9fafb;
-  border: 1px solid #eee;
+  background: #fff;
 }
 
 .user-left {
@@ -267,16 +221,12 @@
 .user-pos {
   width: 34px;
   height: 34px;
-
   border-radius: 50%;
-
   background: #111;
   color: #fff;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-weight: 700;
 }
 

@@ -1,81 +1,4 @@
-// import { useEffect, useState } from "react";
-
-// import UserHeader from "../../components/UserHeader/UserHeader";
-// import DepositModal from "../../components/DepositModal/DepositModal";
-
-// import { profileStore } from "../../store/profileStore";
-
-// import "./DashboardPage.css";
-
-// const DashboardPage = () => {
-//   const { fetchProfile } = profileStore();
-
-//   const profile = profileStore((state) => state.profile);
-
-//   const [isDepositOpen, setIsDepositOpen] = useState(false);
-
-//   useEffect(() => {
-//     fetchProfile();
-//   }, [fetchProfile]);
-
-//   return (
-//     <div className="dashboard-page">
-//       <div className="dashboard-container">
-//         <UserHeader />
-
-//         <div className="dashboard-grid">
-//           {/* PROFILE */}
-//           <div className="card">
-//             <h3>Ігровий профіль</h3>
-
-//             <div className="row">
-//               <span>Рейтинг:</span>
-
-//               <b>{profile?.profile?.rating}</b>
-//             </div>
-
-//             <div className="row">
-//               <span>Рівень:</span>
-
-//               <b>{profile?.profile?.level}</b>
-//             </div>
-//           </div>
-
-//           {/* WALLET */}
-//           <div className="card">
-//             <h3>Гаманець</h3>
-
-//             <div className="balance">
-//               {profile?.wallet?.balance} {profile?.wallet?.currency}
-//             </div>
-
-//             <p className="wallet-text">Доступні способи поповнення:</p>
-
-//             <div className="payment-buttons">
-//               <button
-//                 className="payment-btn"
-//                 onClick={() => setIsDepositOpen(true)}
-//               >
-//                 LiqPay
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       <DepositModal
-//         isOpen={isDepositOpen}
-//         onClose={() => setIsDepositOpen(false)}
-//         provider="LIQPAY"
-//         currencies={["UAH"]}
-//         walletId={profile?.wallet?.id}
-//       />
-//     </div>
-//   );
-// };
-
-// export default DashboardPage;
-
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import UserHeader from "../../components/UserHeader/UserHeader";
@@ -85,32 +8,35 @@ import { profileStore } from "../../store/profileStore";
 
 import "./DashboardPage.css";
 
-const formatDate = (date) => {
-  if (!date) return "—";
-  return new Date(date).toLocaleDateString("uk-UA", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-};
+// const formatDate = (date) => {
+//   if (!date) return "—";
+//   return new Date(date).toLocaleDateString("uk-UA", {
+//     day: "2-digit",
+//     month: "2-digit",
+//     year: "numeric",
+//   });
+// };
 
 const DashboardPage = () => {
-  const profile = profileStore((state) => state.profile);
-  const users = profileStore((state) => state.users);
+  // const profile = profileStore((state) => state.profile);
+  // const users = profileStore((state) => state.users);
+  const wallets = profileStore((state) => state.wallets);
 
   const fetchProfile = profileStore((state) => state.fetchProfile);
   const fetchUsers = profileStore((state) => state.fetchUsers);
 
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const [provider, setProvider] = useState("LIQPAY");
+  const [selectedWalletId, setSelectedWalletId] = useState(null);
 
   useEffect(() => {
     fetchProfile();
     fetchUsers();
   }, []);
 
-  const openDeposit = (p) => {
+  const openDeposit = (p, walletId) => {
     setProvider(p);
+    setSelectedWalletId(walletId);
     setIsDepositOpen(true);
   };
 
@@ -119,51 +45,70 @@ const DashboardPage = () => {
       <div className="dashboard-container">
         <UserHeader />
 
-        {/* ===== ТВОЇ ІСНУЮЧІ СЕКЦІЇ (НЕ ТРОГАВ) ===== */}
+        {/* ===== ІГРОВИЙ ПРОФІЛЬ ===== */}
         <div className="dashboard-grid">
-          <div className="card">
+          {/* <div className="card">
             <h3>Ігровий профіль</h3>
 
             <div className="row">
               <span>Рейтинг:</span>
-              <b>{profile?.profile?.rating}</b>
+              <b>{profile?.rating}</b>
             </div>
 
             <div className="row">
               <span>Рівень:</span>
-              <b>{profile?.profile?.level}</b>
+              <b>{profile?.level}</b>
+            </div>
+          </div> */}
+          <div className="card">
+            <h3>Мої ігри</h3>
+
+            <div className="games-list">
+              <div className="game-item">
+                <div className="game-info">
+                  <span className="game-icon">🎲</span>
+                  <span className="game-name">Рулетка</span>
+                </div>
+                <Link to="/dashboard/roulette" className="game-btn">
+                  Грати
+                </Link>
+              </div>
             </div>
           </div>
 
+          {/* ===== ГАМАНЦІ ===== */}
           <div className="card">
-            <h3>Гаманець</h3>
+            <h3>Мої Гаманці</h3>
 
-            <div className="balance">
-              {profile?.wallet?.balance} {profile?.wallet?.currency}
-            </div>
+            {wallets.length === 0 ? (
+              <p>Немає гаманців</p>
+            ) : (
+              <div className="wallets-list">
+                {wallets.map((w) => (
+                  <div key={w.id} className="wallet-item">
+                    <div className="balance">
+                      {w.balance} {w.currency}
+                    </div>
 
-            <p className="wallet-text">Доступні способи поповнення:</p>
+                    <p className="wallet-text">Доступні способи поповнення:</p>
 
-            <div className="payment-buttons">
-              <button
-                className="payment-btn"
-                onClick={() => openDeposit("LIQPAY")}
-              >
-                LiqPay
-              </button>
-
-              <button
-                className="payment-btn"
-                onClick={() => openDeposit("WAYFORPAY")}
-              >
-                WayForPay
-              </button>
-            </div>
+                    <div className="payment-buttons">
+                      <button
+                        className="payment-btn"
+                        onClick={() => openDeposit("STRIPE", w.id)}
+                      >
+                        STRIPE
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* ===== НОВА СЕКЦІЯ (ДОДАНА ТІЛЬКИ ВОНА) ===== */}
-        <div className="users-section">
+        {/* ===== РЕЙТИНГ КОРИСТУВАЧІВ ===== */}
+        {/* <div className="users-section">
           <div className="users-header">
             <h3>Рейтинг користувачів</h3>
             <span>{users?.length || 0} users</span>
@@ -192,15 +137,16 @@ const DashboardPage = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
 
+      {/* ===== МОДАЛКА ПОПОВНЕННЯ ===== */}
       <DepositModal
         isOpen={isDepositOpen}
         onClose={() => setIsDepositOpen(false)}
         provider={provider}
         currencies={["UAH"]}
-        walletId={profile?.wallet?.id}
+        walletId={selectedWalletId}
       />
     </div>
   );

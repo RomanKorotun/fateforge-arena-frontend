@@ -1,0 +1,282 @@
+/* ===== PAGE ===== */
+.roulette-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.roulette-container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.roulette-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== HEADER ===== */
+.roulette-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roulette-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #222;
+  margin: 0;
+}
+
+.roulette-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.roulette-create-btn,
+.roulette-all-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s ease;
+  color: white;
+}
+
+.roulette-create-btn {
+  background: #00c853;
+}
+
+.roulette-all-btn {
+  background: #2962ff;
+}
+
+.roulette-create-btn:hover,
+.roulette-all-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* ===== WALLET SECTION ===== */
+.wallets-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wallets-text {
+  display: inline-flex; /* все в одному рядку */
+  align-items: baseline; /* вирівнювання по базовій лінії тексту */
+  gap: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+}
+
+.wallet-item-block {
+  background: #f0f0f0; /* легкий сірий фон */
+  border: 1px solid #ddd; /* тонкий бордер */
+  border-radius: 6px; /* трохи округлі кути */
+  padding: 4px 10px; /* внутрішні відступи */
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+}
+
+.wallets-empty {
+  font-size: 14px;
+  color: #777;
+}
+
+/* ===== SESSIONS ===== */
+.roulette-card h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+}
+
+.roulette-sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.roulette-session-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.roulette-session-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  background: #f9fafb;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  transition: all 0.2s ease;
+}
+
+.roulette-session-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.roulette-session-btn.active {
+  border: 1px solid #00c853;
+  background: #e8f5e9;
+}
+
+.roulette-leave-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  background: #d32f2f;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.roulette-leave-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-2px);
+}
+
+.roulette-empty {
+  color: #777;
+  font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .roulette-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .roulette-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .wallets-row {
+    justify-content: flex-start;
+  }
+
+  .wallets-text {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+.roulette-back-row {
+  display: flex;
+  justify-content: flex-start; /* вирівнює по лівому краю */
+  margin-bottom: 20px; /* відступ від основного блоку */
+}
+
+.back-btn {
+  padding: 8px 16px;
+  background-color: #1976d2; /* синій */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #1565c0;
+}
+
+/* ===== CLIENT SEED ===== */
+.seed-box {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.seed-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: #222;
+}
+
+.seed-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.seed-input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+}
+
+.seed-input:focus {
+  border-color: #2962ff;
+}
+
+.seed-btn {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #ff9800;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.seed-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.seed-current {
+  font-size: 13px;
+  color: #555;
+}
+
+.seed-current span {
+  font-weight: 700;
+  color: #111;
+}

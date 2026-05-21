@@ -167,7 +167,7 @@ const SettingsPage = () => {
       <div className="sessions-container">
         <div className="top-bar">
           <button className="back-btn" onClick={handleBack}>
-            Back to profile
+            ⬅ Back to profile
           </button>
         </div>
 
@@ -186,7 +186,10 @@ const SettingsPage = () => {
 
             <tbody>
               {sessions.map((s) => (
-                <tr key={s.id} className={s.isCurrent ? "current-session" : ""}>
+                <tr
+                  key={s.sessionId}
+                  className={s.isCurrent ? "current-session" : ""}
+                >
                   <td>
                     {s.device.browser} • {s.device.os} • {s.device.type}
                     {s.isCurrent && (
@@ -202,7 +205,7 @@ const SettingsPage = () => {
                     <div className="action-cell">
                       <button
                         className="btn-danger"
-                        onClick={() => handleRevoke(s.id, s.isCurrent)}
+                        onClick={() => handleRevoke(s.sessionId, s.isCurrent)}
                       >
                         End session
                       </button>
@@ -211,9 +214,9 @@ const SettingsPage = () => {
                 </tr>
               ))}
 
-              <tr className="table-footer-row">
+              {/* Footer row з унікальним key */}
+              <tr key="footer-row" className="table-footer-row">
                 <td colSpan="3"></td>
-
                 <td>
                   <div className="action-cell">
                     <button className="btn-clear-all" onClick={handleClearAll}>

@@ -79,7 +79,7 @@ export const authStore = create((set) => ({
       await revokeSessionApi(sessionId);
 
       set((state) => ({
-        sessions: state.sessions.filter((s) => s.id !== sessionId),
+        sessions: state.sessions.filter((s) => s.sessionId !== sessionId),
       }));
     } catch (err) {
       console.error("Помилка при завершенні сесії:", err);
