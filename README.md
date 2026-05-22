@@ -1,16 +1,56 @@
-# React + Vite
+# 🎮 FateForge Arena — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend частина проєкту **FateForge Arena** — платформа з транзакціями, ігровими сесіями та користувацьким кабінетом.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+Проєкт задеплоєний на Netlify:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+👉 https://fateforge-arena-frontend.netlify.app
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- React
+- React Router
+- Zustand (state management)
+- Axios
+- CSS Modules
+
+---
+
+## Local Setup
+
+Щоб запустити проєкт локально:
+
+### 1. Клонувати репозиторій
+
+```bash
+git clone <your-repo-url>
+cd <your-project-folder>
+```
+
+### 2. Створити .env файл
+
+У корені проєкту створи файл: `.env`
+
+Скопіюй вміст з: `.env.example` і заповни необхідні змінні.
+
+### 3. Встановити залежності
+
+```
+npm install
+```
+
+### 4. Запустити проєкт
+
+```
+npm run dev
+```
+
+## Deployment
+
+Frontend автоматично деплоїться на Netlify при push в main branch GitHub.

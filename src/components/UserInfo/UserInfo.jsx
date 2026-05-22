@@ -31,6 +31,14 @@ const UserInfo = () => {
     }
   };
 
+  const handleTransactions = () => {
+    if (user?.role === "ADMIN") {
+      navigate("/admin/transactions");
+    } else {
+      navigate("/dashboard/transactions");
+    }
+  };
+
   const handleLogout = async () => {
     try {
       await logoutUser();
@@ -93,6 +101,10 @@ const UserInfo = () => {
         <div className="user-actions">
           <button className="settings-btn" onClick={handleSettings}>
             Налаштування
+          </button>
+
+          <button className="settings-btn" onClick={handleTransactions}>
+            Транзакції
           </button>
 
           <button className="logout-btn" onClick={handleLogout}>

@@ -1,19 +1,3 @@
-// import { Routes, Route } from "react-router-dom";
-
-// import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
-// import DataDeletionPolicyPage from "./pages/DataDeletionPolicyPage/DataDeletionPolicyPage";
-
-// const App = () => {
-//   return (
-//     <Routes>
-//       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-//       <Route path="/deletion-policy" element={<DataDeletionPolicyPage />} />
-//     </Routes>
-//   );
-// };
-
-// export default App;
-
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -26,6 +10,7 @@ import SigninPage from "./pages/SigninPage/SigninPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import TransactionsPage from "./pages/TransactionsPage/TransactionsPage";
 
 import NotFoundPage from "./pages/NotFoundPage";
 import BlockedPage from "./pages/BlockedPage/BlockedPage";
@@ -80,6 +65,7 @@ const App = () => {
         <Route element={<UserRoute />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="dashboard/settings" element={<SettingsPage />} />
+          <Route path="dashboard/transactions" element={<TransactionsPage />} />
           <Route path="dashboard/roulette" element={<RoulettePage />} />
           <Route
             path="dashboard/roulette/game/:sessionId"
