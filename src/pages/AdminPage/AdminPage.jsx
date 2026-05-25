@@ -20,12 +20,12 @@ const AdminPage = () => {
     quota: "",
   });
 
-  // 📦 load users
+  // load users
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
 
-  // ✏️ start edit
+  // start edit
   const startEdit = (user) => {
     setEditId(user.id);
 
@@ -38,19 +38,19 @@ const AdminPage = () => {
     });
   };
 
-  // ❌ cancel
+  // cancel
   const cancelEdit = () => {
     setEditId(null);
     setDraft({ status: "" });
     setOriginal({ status: "" });
   };
 
-  // 💾 save (ПОСЛІДОВНО!)
+  // save
   const saveEdit = async (user) => {
     try {
       let hasChanges = false;
 
-      // 🔵 STATUS
+      // STATUS
       if (draft.status !== original.status) {
         const payload = {
           userId: user.id,
@@ -59,20 +59,20 @@ const AdminPage = () => {
 
         console.log("🟦 STATUS REQUEST:", payload);
 
-        await updateStatus(user.id, draft.status); // ⬅️ перший запит
+        await updateStatus(user.id, draft.status);
         hasChanges = true;
       }
 
       if (!hasChanges) {
-        console.log("⚪ Нема змін — запит не відправляється");
+        console.log("Нема змін — запит не відправляється");
         cancelEdit();
         return;
       }
 
-      console.log("✅ Успішно оновлено");
+      console.log("Успішно оновлено");
       cancelEdit();
     } catch (err) {
-      console.error("❌ Save error:", err);
+      console.error("Save error:", err);
     }
   };
 

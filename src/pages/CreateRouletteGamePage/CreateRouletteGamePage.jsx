@@ -89,7 +89,6 @@ const CreateRouletteGamePage = () => {
     let num = Number(newValue);
     if (num < 0) num = 0;
 
-    // ❌ більше не обмежуємо значення балансом
     setBetAmount(String(num));
   };
 
@@ -134,7 +133,6 @@ const CreateRouletteGamePage = () => {
           <div className="roulette-game-header">
             <h1 className="roulette-game-title">🎰 Roulette Room</h1>
             <div className="roulette-game-actions">
-              {/* Кнопка повернення до головної сторінки рулетки */}
               <button
                 className="roulette-game-back-btn"
                 onClick={() => navigate("/dashboard/roulette")}
@@ -142,7 +140,6 @@ const CreateRouletteGamePage = () => {
                 ⬅ Back to Roulette
               </button>
 
-              {/* Кнопка повернення до профілю */}
               <button
                 className="roulette-game-profile-btn"
                 onClick={() => navigate("/dashboard")}
@@ -248,7 +245,6 @@ const CreateRouletteGamePage = () => {
                     </div>
                   ))}
 
-                {/* Загальна сума ставок */}
                 <div className="roulette-game-total">
                   <strong>
                     Total:{" "}

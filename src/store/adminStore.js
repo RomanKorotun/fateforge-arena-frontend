@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { updateUserStatus, getUsers } from "../api/adminApi";
 
-export const adminStore = create((set, get) => ({
+export const adminStore = create((set) => ({
   users: [],
 
   // отримати всіх юзерів
@@ -18,7 +18,6 @@ export const adminStore = create((set, get) => ({
   updateStatus: async (userId, status) => {
     try {
       await updateUserStatus(userId, status);
-
       set((state) => ({
         users: state.users.map((u) => (u.id === userId ? { ...u, status } : u)),
       }));

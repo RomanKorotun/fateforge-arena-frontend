@@ -32,7 +32,7 @@ const App = () => {
 
   useEffect(() => {
     fetchMe();
-  }, []);
+  }, [fetchMe]);
 
   if (loading) {
     return <div>Loading...</div>;

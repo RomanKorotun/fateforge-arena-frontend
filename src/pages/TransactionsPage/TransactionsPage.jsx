@@ -21,10 +21,9 @@ const TransactionsPage = () => {
 
   const transactions = transactionStore((s) => s.transactions);
   const pagination = transactionStore((s) => s.pagination);
-  const loading = transactionStore((s) => s.loading);
   const fetchTransactions = transactionStore((s) => s.fetchTransactions);
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState(() => ({
     page: Number(searchParams.get("page")) || 1,
     limit: Number(searchParams.get("limit")) || 8,
     type: searchParams.get("type") || "",
@@ -33,16 +32,19 @@ const TransactionsPage = () => {
     currency: searchParams.get("currency") || "",
     from: searchParams.get("from") || "",
     to: searchParams.get("to") || "",
-  });
+  }));
+
+  useEffect(() => {
+    fetchTransactions(filters);
+  }, [filters, fetchTransactions]);
 
   useEffect(() => {
     const cleaned = Object.fromEntries(
       Object.entries(filters).filter(([, v]) => v !== ""),
     );
 
-    fetchTransactions(filters);
-    setSearchParams(cleaned);
-  }, [filters]);
+    setSearchParams(cleaned, { replace: true });
+  }, [filters, setSearchParams]);
 
   const updateFilter = (key, value) => {
     setFilters((prev) => ({
@@ -67,10 +69,8 @@ const TransactionsPage = () => {
   return (
     <div className="transactions-page">
       <div className="transactions-container">
-        {/* BACK BUTTON (TOP LEFT ABOVE CARD) */}
         <div className="back-btn-wrapper">
           <button className="back-btn" onClick={handleBack}>
-            {" "}
             ⬅ Back to profile
           </button>
         </div>
@@ -85,6 +85,7 @@ const TransactionsPage = () => {
             </div>
           </div>
 
+          {/* FILTERS */}
           <div className="transactions-filters-row">
             <div className="transactions-filters">
               <div className="filter-block">
@@ -95,7 +96,7 @@ const TransactionsPage = () => {
                 >
                   <option value="">All</option>
                   <option value="DEPOSIT">Deposit</option>
-                  <option value="WITHDRAW">Withdraw</option>
+                  <option value="WITHDRAWAL">Withdraw</option>
                   <option value="BET">Bet</option>
                   <option value="WIN">Win</option>
                 </select>
@@ -161,28 +162,27 @@ const TransactionsPage = () => {
             </button>
           </div>
 
-          {loading ? (
-            <div className="transactions-loading">Loading...</div>
-          ) : (
-            <div className="transactions-table-wrapper">
-              <table className="transactions-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Amount</th>
-                    <th>Provider</th>
-                    <th>Before</th>
-                    <th>After</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
+          {/* TABLE */}
+          <div className="transactions-table-wrapper">
+            <table className="transactions-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                  <th>Provider</th>
+                  <th>Before</th>
+                  <th>After</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
 
-                <tbody>
-                  {transactions.map((tx, i) => (
+              <tbody>
+                {transactions.length > 0 ? (
+                  transactions.map((tx, i) => (
                     <tr key={tx.id}>
-                      <td>{(pagination.page - 1) * filters.limit + i + 1}</td>
+                      <td>{(filters.page - 1) * filters.limit + i + 1}</td>
                       <td>{tx.type}</td>
                       <td>{tx.status}</td>
                       <td>
@@ -193,13 +193,19 @@ const TransactionsPage = () => {
                       <td>{tx.balanceAfter}</td>
                       <td>{new Date(tx.createdAt).toLocaleString()}</td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="empty-state">
+                      No transactions found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
 
-          {pagination && (
+          {pagination && transactions.length > 0 && (
             <div className="transactions-pagination">
               <button
                 disabled={!pagination.hasPrevPage}

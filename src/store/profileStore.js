@@ -2,75 +2,80 @@ import { create } from "zustand";
 
 import {
   getFullUserProfile,
-  getPublicUsers,
   uploadAvatar,
   createClientSeed,
   updateClientSeed,
   getClientSeed,
+  getUserAddress,
+  createUserAddress,
+  updateUserAddress,
 } from "../api/profileApi";
 
-export const profileStore = create((set, get) => ({
-  profile: null,
-  users: [],
+export const profileStore = create((set) => ({
+  avatar: null,
   wallets: [],
   clientSeed: "",
+  address: null,
 
-  // ================= PROFILE =================
+  // Профіль залогіненого користувача (avatar та гаманці)
   fetchProfile: async () => {
     try {
       const { profile, wallets } = await getFullUserProfile();
-
-      set({
-        profile,
-        wallets,
-      });
+      set({ avatar: profile.avatar, wallets });
     } catch (err) {
       console.error("Помилка при отриманні профілю:", err);
-      set({ profile: null, wallets: [], clientSeed: "" });
     }
   },
 
-  // ================= USERS =================
-  fetchUsers: async () => {
+  // GET address
+  fetchAddress: async () => {
     try {
-      const users = await getPublicUsers();
-      set({ users });
+      const address = await getUserAddress();
+      set({ address });
+      return address;
     } catch (err) {
-      console.error("Помилка при отриманні користувачів:", err);
+      console.error("Помилка get address:", err);
     }
   },
 
-  // ================= AVATAR =================
+  // CREATE address
+  createAddress: async (payload) => {
+    try {
+      const data = await createUserAddress(payload);
+      set({ address: data });
+      return data;
+    } catch (err) {
+      console.error("Помилка create address:", err);
+      throw err;
+    }
+  },
+
+  // UPDATE address
+  updateAddress: async (payload) => {
+    try {
+      await updateUserAddress(payload);
+    } catch (err) {
+      console.error("Помилка update address:", err);
+      throw err;
+    }
+  },
+
+  // upload avatar
   uploadUserAvatar: async (file) => {
     try {
       const data = await uploadAvatar(file);
-
-      const currentProfile = get().profile;
-
-      set({
-        profile: {
-          ...currentProfile,
-          profile: {
-            ...currentProfile?.profile,
-            avatar: data.avatarUrl,
-          },
-        },
-      });
-
-      return data;
+      set({ avatar: data.avatarUrl });
     } catch (err) {
       console.error("Помилка при завантаженні аватара:", err);
       throw err;
     }
   },
 
-  // ================= SEED CREATE =================
+  // створення клієнтського сіда
   createSeed: async (clientSeed) => {
     try {
       const data = await createClientSeed(clientSeed);
-
       set({ clientSeed: data.clientSeed });
-
       return data;
     } catch (err) {
       console.error("Помилка create seed:", err);
@@ -78,13 +83,11 @@ export const profileStore = create((set, get) => ({
     }
   },
 
-  // ================= SEED UPDATE =================
+  // оновлення клієнтського сіда
   updateSeed: async (clientSeed) => {
     try {
       const data = await updateClientSeed(clientSeed);
-
       set({ clientSeed: data.clientSeed });
-
       return data;
     } catch (err) {
       console.error("Помилка update seed:", err);
@@ -92,27 +95,20 @@ export const profileStore = create((set, get) => ({
     }
   },
 
-  // ================= GET SEED =================
+  // отримати клієнтський сід
   fetchClientSeed: async () => {
     try {
       const data = await getClientSeed();
-
-      set({
-        clientSeed: data.clientSeed,
-      });
-
+      set({ clientSeed: data.clientSeed });
       return data;
     } catch (err) {
       console.error("Помилка get seed:", err);
       set({ clientSeed: "" });
+      throw err;
     }
   },
 
-  // ================= CLEAR =================
+  // очищення профіля
   clearProfile: () =>
-    set({
-      profile: null,
-      wallets: [],
-      clientSeed: "",
-    }),
+    set({ avatar: null, wallets: [], clientSeed: "", address: null }),
 }));

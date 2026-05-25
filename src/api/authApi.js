@@ -14,13 +14,7 @@ export const signin = async (body) => {
 
 // отримання поточного користувача
 export const current = async () => {
-  const { data } = await apiClient.get("/auth/me");
-  return data;
-};
-
-// завершує поточну сесію користувача (видаляє cookie / токен)
-export const signout = async () => {
-  const { data } = await apiClient.post("/auth/signout");
+  const { data } = await apiClient.get("/auth/current");
   return data;
 };
 
@@ -30,20 +24,26 @@ export const getSessions = async () => {
   return data;
 };
 
-// відкликати (видалити) сесію
+// завершує поточну сесію користувача - logout (видаляє cookie / токен)
+export const signout = async () => {
+  const { data } = await apiClient.post("/auth/signout");
+  return data;
+};
+
+// Відкликання (завершення) сесії користувача по sessionId
 export const revokeSession = async (sessionId) => {
   const { data } = await apiClient.delete(`/auth/sessions/${sessionId}/revoke`);
   return data;
 };
 
-// logout all sessions
+// Відкликання (завершення) всіх сесії користувача
 export const revokeAllSessions = async () => {
   const { data } = await apiClient.delete("/auth/sessions/revoke-all");
   return data;
 };
 
-// отримання списку користувачів (лише для ADMIN)
-export const getUsers = async () => {
-  const { data } = await apiClient.get("/users");
+// видалення акаунта, видалення всіх активних сесій, очищення кукі,  (SOFT DELETE)
+export const deleteMyAccount = async () => {
+  const { data } = await apiClient.delete("/auth/me");
   return data;
 };

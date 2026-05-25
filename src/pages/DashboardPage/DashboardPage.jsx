@@ -3,27 +3,13 @@ import { useEffect, useState } from "react";
 
 import UserHeader from "../../components/UserHeader/UserHeader";
 import DepositModal from "../../components/DepositModal/DepositModal";
-
 import { profileStore } from "../../store/profileStore";
 
 import "./DashboardPage.css";
 
-// const formatDate = (date) => {
-//   if (!date) return "—";
-//   return new Date(date).toLocaleDateString("uk-UA", {
-//     day: "2-digit",
-//     month: "2-digit",
-//     year: "numeric",
-//   });
-// };
-
 const DashboardPage = () => {
-  // const profile = profileStore((state) => state.profile);
-  // const users = profileStore((state) => state.users);
   const wallets = profileStore((state) => state.wallets);
-
-  const fetchProfile = profileStore((state) => state.fetchProfile);
-  const fetchUsers = profileStore((state) => state.fetchUsers);
+  const { fetchProfile } = profileStore();
 
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const [provider, setProvider] = useState("LIQPAY");
@@ -31,7 +17,6 @@ const DashboardPage = () => {
 
   useEffect(() => {
     fetchProfile();
-    fetchUsers();
   }, []);
 
   const openDeposit = (p, walletId) => {
@@ -45,21 +30,7 @@ const DashboardPage = () => {
       <div className="dashboard-container">
         <UserHeader />
 
-        {/* ===== ІГРОВИЙ ПРОФІЛЬ ===== */}
         <div className="dashboard-grid">
-          {/* <div className="card">
-            <h3>Ігровий профіль</h3>
-
-            <div className="row">
-              <span>Рейтинг:</span>
-              <b>{profile?.rating}</b>
-            </div>
-
-            <div className="row">
-              <span>Рівень:</span>
-              <b>{profile?.level}</b>
-            </div>
-          </div> */}
           <div className="card">
             <h3>Мої ігри</h3>
 
@@ -76,7 +47,6 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* ===== ГАМАНЦІ ===== */}
           <div className="card">
             <h3>Мої Гаманці</h3>
 
@@ -106,41 +76,8 @@ const DashboardPage = () => {
             )}
           </div>
         </div>
-
-        {/* ===== РЕЙТИНГ КОРИСТУВАЧІВ ===== */}
-        {/* <div className="users-section">
-          <div className="users-header">
-            <h3>Рейтинг користувачів</h3>
-            <span>{users?.length || 0} users</span>
-          </div>
-
-          <div className="users-list">
-            {users?.map((user, index) => (
-              <div className="user-item" key={index}>
-                <div className="user-left">
-                  <div className="user-pos">#{index + 1}</div>
-
-                  <div className="user-info">
-                    <div className="user-name">{user.username}</div>
-
-                    <div className="user-meta">
-                      🌍 {user.country || "Unknown country"} · 📅{" "}
-                      {formatDate(user.createdAt)}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="user-right">
-                  <div>⭐ {user.profile?.rating ?? 0}</div>
-                  <div>LVL {user.profile?.level ?? 0}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </div>
 
-      {/* ===== МОДАЛКА ПОПОВНЕННЯ ===== */}
       <DepositModal
         isOpen={isDepositOpen}
         onClose={() => setIsDepositOpen(false)}

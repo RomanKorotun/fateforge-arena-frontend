@@ -3,7 +3,6 @@ import { useRef } from "react";
 
 import { authStore } from "../../store/authStore";
 import { profileStore } from "../../store/profileStore";
-
 import "./UserInfo.css";
 
 const BACKEND_URL_AVATAR = import.meta.env.VITE_API_URL_AVATAR;
@@ -12,9 +11,9 @@ const UserInfo = () => {
   const user = authStore((state) => state.user);
   const { logoutUser } = authStore();
 
-  const profile = profileStore((state) => state.profile);
+  const avatar = profileStore((state) => state.avatar);
 
-  const uploadUserAvatar = profileStore((state) => state.uploadUserAvatar);
+  const { uploadUserAvatar } = profileStore();
 
   const navigate = useNavigate();
 
@@ -65,9 +64,6 @@ const UserInfo = () => {
       console.error(err);
     }
   };
-
-  // avatar url
-  const avatar = profile?.profile?.avatar;
 
   const avatarSrc = avatar?.startsWith("http")
     ? avatar

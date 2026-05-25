@@ -1,24 +1,45 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import "./DataDeletionPolicyPage.css";
 
 const DataDeletionPolicyPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from || "/";
+
+  const handleBack = () => navigate(from);
+
   return (
     <div className="delete-page">
-      <div className="delete-card">
-        <h1>🗑️ Видалення акаунта</h1>
+      <div className="delete-wrapper">
+        <button className="back-btn" onClick={handleBack}>
+          ⬅ Back
+        </button>
 
-        <p>
-          Ви можете повністю видалити свій акаунт та всі пов’язані дані з нашої
-          системи.
-        </p>
+        <div className="delete-card">
+          <h1>🗑️ Видалення акаунта</h1>
 
-        <p>Щоб видалити акаунт, натисніть кнопку нижче у вашому профілі:</p>
+          <p>
+            Користувач може видалити свій обліковий запис у будь-який момент
+            через налаштування профілю.
+          </p>
 
-        <div className="warning-box">Delete account</div>
+          <p>
+            Після видалення акаунт переходить у стан неактивного (soft delete) і
+            більше не використовується в системі.
+          </p>
 
-        <p className="contact">
-          Якщо у вас є питання — напишіть нам:&nbsp;
-          <a href="mailto:roman.korotun@ukr.net">roman.korotun@ukr.net</a>
-        </p>
+          <p>
+            Дані користувача можуть бути відновлені через процедуру відновлення
+            доступу або повторну авторизацію.
+          </p>
+
+          <p>
+            Якщо у вас є питання щодо процедури видалення або відновлення
+            акаунта, звертайтеся на{" "}
+            <a href="mailto:roman.korotun@ukr.net">roman.korotun@ukr.net</a>.
+          </p>
+        </div>
       </div>
     </div>
   );

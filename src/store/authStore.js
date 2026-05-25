@@ -8,9 +8,11 @@ import {
   getSessions,
   revokeSession as revokeSessionApi,
   revokeAllSessions,
+  deleteMyAccount,
 } from "../api/authApi";
+import { profileStore } from "./profileStore";
 
-export const authStore = create((set) => ({
+export const authStore = create((set, get) => ({
   user: null,
   sessions: [],
   loading: true,
@@ -41,7 +43,6 @@ export const authStore = create((set) => ({
   // отримання поточного користувача
   fetchMe: async () => {
     set({ loading: true });
-
     try {
       const user = await current();
       set({ user, loading: false });
@@ -50,7 +51,18 @@ export const authStore = create((set) => ({
     }
   },
 
-  // викликає API signout та очищає user у store
+  // отримати всі сесії поточного користувача
+  fetchSessions: async () => {
+    try {
+      const sessions = await getSessions();
+      set({ sessions });
+    } catch (err) {
+      console.error("Помилка при отриманні сесій:", err);
+      set({ sessions: [] });
+    }
+  },
+
+  // завершує поточну сесію користувача - logout (видаляє cookie / токен)
   logoutUser: async () => {
     try {
       const data = await signout();
@@ -62,22 +74,10 @@ export const authStore = create((set) => ({
     }
   },
 
-  // отримання сесій користувача
-  fetchSessions: async () => {
-    try {
-      const sessions = await getSessions();
-      set({ sessions });
-    } catch (err) {
-      console.error("Помилка при отриманні сесій:", err);
-      set({ sessions: [] });
-    }
-  },
-
   // Відкликання (завершення) сесії користувача по sessionId
   revokeSession: async (sessionId) => {
     try {
       await revokeSessionApi(sessionId);
-
       set((state) => ({
         sessions: state.sessions.filter((s) => s.sessionId !== sessionId),
       }));
@@ -87,17 +87,28 @@ export const authStore = create((set) => ({
     }
   },
 
+  // Відкликання (завершення) всіх сесії користувача
   clearAllSessions: async () => {
     try {
       await revokeAllSessions();
-
-      set({
-        user: null,
-        sessions: [],
-      });
+      set({ user: null, sessions: [] });
     } catch (err) {
       console.error("Помилка при logout all sessions:", err);
       throw err;
     }
   },
+
+  // видалення акаунта, видалення всіх активних сесій, очищення кукі,  (SOFT DELETE)
+  deleteAccount: async () => {
+    try {
+      await deleteMyAccount();
+      profileStore.getState().clearProfile();
+      get().clearAuth();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+
+  clearAuth: () => set({ user: null, sessions: [] }),
 }));

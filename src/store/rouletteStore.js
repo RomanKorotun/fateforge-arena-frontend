@@ -6,13 +6,13 @@ import {
   getUserSessions,
 } from "../api/rouletteApi";
 
-export const rouletteStore = create((set, get) => ({
+export const rouletteStore = create((set) => ({
   session: null,
   activeSessions: [],
   bets: [],
   selectedNumber: null,
 
-  // 🎯 створення сесії через API
+  // створення ігрової кімнати
   createSession: async () => {
     try {
       const session = await createGameSession();
@@ -24,34 +24,28 @@ export const rouletteStore = create((set, get) => ({
     }
   },
 
-  // 🎯 зайти в сесію (з URL)
+  // зайти в сесію (з URL)
   setSession: (session) => {
     set({ session });
   },
 
-  // ставки
+  // зробити ставку
   placeBet: async (payload) => {
     const result = await placeBetApi(payload);
-    console.log(result);
-    set((state) => ({
-      lastResult: result, // тут зберігаємо результат останнього спіну
-    }));
+    set((state) => ({ lastResult: result }));
   },
 
   clearBets: () => set({ bets: [] }),
 
   setSelectedNumber: (number) => set({ selectedNumber: number }),
 
+  // закриття ігрової кімнати
   leaveGame: async (sessionId) => {
     if (!sessionId) return;
     await leaveGameApi(sessionId);
-    set({
-      session: null,
-      bets: [],
-      selectedNumber: null,
-    });
+    set({ session: null, bets: [], selectedNumber: null });
   },
-  // 🎯 отримати всі сесії користувача з бекенду
+  // отримати всі ігрові сесії користувача
   fetchSessions: async () => {
     try {
       const sessions = await getUserSessions();
