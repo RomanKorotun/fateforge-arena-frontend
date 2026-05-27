@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "sonner";
 
 import Layout from "./Layout";
 
@@ -18,6 +19,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import DataDeletionPolicyPage from "./pages/DataDeletionPolicyPage/DataDeletionPolicyPage";
 import RoulettePage from "./pages/RoulettePage/RoulettePage";
 import CreateRouletteGamePage from "./pages/CreateRouletteGamePage/CreateRouletteGamePage";
+import ConfirmEmailPage from "./pages/ConfirmEmailPage/ConfirmEmailPage";
 
 import { authStore } from "./store/authStore";
 
@@ -39,53 +41,61 @@ const App = () => {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        {/* LANDING */}
-        <Route
-          index
-          element={
-            !user ? (
-              <LandingPage />
-            ) : user.role === "ADMIN" ? (
-              <Navigate to="/admin" replace />
-            ) : (
-              <Navigate to="/dashboard" replace />
-            )
-          }
-        />
-
-        {/* GUEST */}
-        <Route element={<GuestRoute />}>
-          <Route path="signin" element={<SigninPage />} />
-          <Route path="signup" element={<SignupPage />} />
-        </Route>
-
-        {/* USER */}
-        <Route element={<UserRoute />}>
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="dashboard/settings" element={<SettingsPage />} />
-          <Route path="dashboard/transactions" element={<TransactionsPage />} />
-          <Route path="dashboard/roulette" element={<RoulettePage />} />
+    <>
+      <Toaster position="top-right" richColors closeButton />
+      <Routes>
+        {/* <Route path=""/> */}
+        <Route path="/" element={<Layout />}>
+          {/* LANDING */}
           <Route
-            path="dashboard/roulette/game/:sessionId"
-            element={<CreateRouletteGamePage />}
+            index
+            element={
+              !user ? (
+                <LandingPage />
+              ) : user.role === "ADMIN" ? (
+                <Navigate to="/admin" replace />
+              ) : (
+                <Navigate to="/dashboard" replace />
+              )
+            }
           />
-        </Route>
 
-        {/* ADMIN */}
-        <Route element={<AdminRoute />}>
-          <Route path="admin" element={<AdminPage />} />
-          <Route path="admin/settings" element={<SettingsPage />} />
-        </Route>
+          {/* GUEST */}
+          <Route element={<GuestRoute />}>
+            <Route path="signin" element={<SigninPage />} />
+            <Route path="signup" element={<SignupPage />} />
+          </Route>
 
-        {/* BLOCKED */}
-        <Route path="blocked" element={<BlockedPage />} />
-      </Route>
-      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-      <Route path="/deletion-policy" element={<DataDeletionPolicyPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+          {/* USER */}
+          <Route element={<UserRoute />}>
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="dashboard/settings" element={<SettingsPage />} />
+            <Route
+              path="dashboard/transactions"
+              element={<TransactionsPage />}
+            />
+            <Route path="dashboard/roulette" element={<RoulettePage />} />
+            <Route
+              path="dashboard/roulette/game/:sessionId"
+              element={<CreateRouletteGamePage />}
+            />
+          </Route>
+
+          {/* ADMIN */}
+          <Route element={<AdminRoute />}>
+            <Route path="admin" element={<AdminPage />} />
+            <Route path="admin/settings" element={<SettingsPage />} />
+          </Route>
+
+          {/* BLOCKED */}
+          <Route path="blocked" element={<BlockedPage />} />
+        </Route>
+        <Route path="/confirm-email" element={<ConfirmEmailPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/deletion-policy" element={<DataDeletionPolicyPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
   );
 };
 

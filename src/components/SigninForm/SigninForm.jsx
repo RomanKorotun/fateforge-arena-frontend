@@ -72,6 +72,15 @@ const SigninForm = () => {
         <button type="submit" className="signup-button">
           Логін
         </button>
+        <div className="signup-resend-wrapper">
+          <p className="signup-resend-text">
+            Didn't receive the confirmation email?
+          </p>
+
+          <a href="/resend-verification" className="signup-resend-link">
+            Resend verification email
+          </a>
+        </div>
         {error && <div className="signup-error">{error}</div>}
       </form>
     </div>

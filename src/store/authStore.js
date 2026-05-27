@@ -20,7 +20,8 @@ export const authStore = create((set, get) => ({
   // реєстрація
   registerUser: async (body) => {
     try {
-      await signup(body);
+      const result = await signup(body);
+      return result;
     } catch (err) {
       console.error("Помилка при реєстрації користувача:", err);
       throw err;

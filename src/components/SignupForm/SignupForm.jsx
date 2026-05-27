@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import "./SignupForm.css";
 import AuthTabs from "../AuthTabs/AuthTabs";
@@ -10,16 +10,19 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  const navigate = useNavigate();
+  const [successResponse, SetSuccessResponse] = useState("");
 
   const { registerUser } = authStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await registerUser({ username, email, password });
-      navigate("/signin");
+      const result = await registerUser({ username, email, password });
+      console.log(result);
+      SetSuccessResponse(result.message);
+      setUsername("");
+      setEmail("");
+      setPassword("");
     } catch (err) {
       const message =
         err?.response?.data?.message || "Помилка при реєстрації ❌";
@@ -77,6 +80,18 @@ const SignupForm = () => {
         <button type="submit" className="signup-button">
           Реєстрація
         </button>
+        <div className="signup-resend-wrapper">
+          <p className="signup-resend-text">
+            Didn't receive the confirmation email?
+          </p>
+
+          <a href="/resend-verification" className="signup-resend-link">
+            Resend verification email
+          </a>
+        </div>
+        {successResponse && (
+          <div className="signup-success">{successResponse}</div>
+        )}
         {error && <div className="signup-error">{error}</div>}
       </form>
     </div>
