@@ -189,8 +189,12 @@ const TransactionsPage = () => {
                         {tx.amount} {tx.currency}
                       </td>
                       <td>{tx.provider}</td>
-                      <td>{tx.balanceBefore}</td>
-                      <td>{tx.balanceAfter}</td>
+                      <td>
+                        {tx.balanceBefore} {tx.currency}
+                      </td>
+                      <td>
+                        {tx.balanceAfter} {tx.currency}
+                      </td>
                       <td>{new Date(tx.createdAt).toLocaleString()}</td>
                     </tr>
                   ))

@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "sonner";
-import "./CreateRouletteGamePage.css";
+import "./JoinRouletteGamePage.css";
 import { profileStore } from "../../store/profileStore";
 import { rouletteStore } from "../../store/rouletteStore";
+import { rouletteSocket } from "../../socket/rouletteSocket";
 
 const numbers = Array.from({ length: 37 }, (_, i) => i);
 const redNumbers = new Set([
   1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36,
 ]);
 
-const CreateRouletteGamePage = () => {
+const JoinRouletteGamePage = () => {
   const navigate = useNavigate();
-  const { sessionId } = useParams();
+  const { roomId } = useParams();
+
+  const [roomState, setRoomState] = useState(null);
+
+  console.log(roomState);
 
   const wallets = profileStore((s) => s.wallets);
-  // const fetchProfile = profileStore((s) => s.fetchProfile);
-  const { fetchWallets } = profileStore();
+  const fetchProfile = profileStore((s) => s.fetchProfile);
 
   const placeBet = rouletteStore((s) => s.placeBet);
   const lastResult = rouletteStore((s) => s.lastResult);
@@ -28,8 +31,20 @@ const CreateRouletteGamePage = () => {
   const [betAmount, setBetAmount] = useState(""); // порожній рядок
 
   useEffect(() => {
-    fetchWallets();
-  }, [fetchWallets]);
+    fetchProfile();
+  }, [fetchProfile]);
+
+  useEffect(() => {
+    const handler = (data) => {
+      setRoomState(data);
+    };
+    rouletteSocket.emit("room:join", { roomId: roomId });
+    rouletteSocket.on("room:state", handler);
+    return () => {
+      rouletteSocket.off("room:state", handler);
+      rouletteSocket.emit("room:leave", { roomId: roomId });
+    };
+  }, [roomId]);
 
   const selectedWallet =
     wallets.find((w) => w.id === selectedWalletId) || wallets[0];
@@ -49,8 +64,7 @@ const CreateRouletteGamePage = () => {
   const toggleStraight = (num) => {
     const numAmount = Number(betAmount);
     if (!betAmount || numAmount < 1) {
-      toast.warning("Спочатку введіть суму ставки!", { duration: 5000 });
-      // alert("Спочатку введіть суму ставки!");
+      alert("Спочатку введіть суму ставки!");
       return;
     }
     setStraightBet({ type: "STRAIGHT", value: num, amount: numAmount });
@@ -60,8 +74,7 @@ const CreateRouletteGamePage = () => {
   const toggleColor = (type) => {
     const numAmount = Number(betAmount);
     if (!betAmount || numAmount < 1) {
-      toast.warning("Спочатку введіть суму ставки!", { duration: 5000 });
-      // alert("Спочатку введіть суму ставки!");
+      alert("Спочатку введіть суму ставки!");
       return;
     }
     setColorBet({ type, amount: numAmount });
@@ -71,8 +84,7 @@ const CreateRouletteGamePage = () => {
   const toggleParity = (type) => {
     const numAmount = Number(betAmount);
     if (!betAmount || numAmount < 1) {
-      toast.warning("Спочатку введіть суму ставки!", { duration: 5000 });
-      // alert("Спочатку введіть суму ставки!");
+      alert("Спочатку введіть суму ставки!");
       return;
     }
     setParityBet({ type, amount: numAmount });
@@ -104,34 +116,31 @@ const CreateRouletteGamePage = () => {
 
     // якщо ставок немає → взагалі не відправляємо
     if (bets.length === 0) {
-      toast.warning("Ви не вибрали жодної ставки!", { duration: 5000 });
-      // alert("Ви не вибрали жодної ставки!");
+      alert("Ви не вибрали жодної ставки!");
       return;
     }
 
     const totalBet = bets.reduce((sum, b) => sum + b.amount, 0);
 
     if (bets.some((b) => b.amount < 1)) {
-      toast.warning("Ставка повинна бути більше 0!", { duration: 5000 });
-      // alert("Ставка повинна бути більше 0!");
+      alert("Ставка повинна бути більше 0!");
       return;
     }
 
     if (totalBet > selectedWallet.balance) {
-      toast.warning("Сума ставок перевищує баланс!", { duration: 5000 });
       alert("Сума ставок перевищує баланс!");
       return;
     }
 
     const payload = {
-      gameSessionId: sessionId,
+      gameSessionId: roomId,
       walletId: selectedWallet.id,
       bets,
     };
     await placeBet(payload);
 
     resetBets();
-    await fetchWallets();
+    await fetchProfile();
   };
 
   return (
@@ -311,4 +320,4 @@ const CreateRouletteGamePage = () => {
   );
 };
 
-export default CreateRouletteGamePage;
+export default JoinRouletteGamePage;

@@ -44,6 +44,15 @@ const DashboardPage = () => {
                   Грати
                 </Link>
               </div>
+              <div className="game-item">
+                <div className="game-info">
+                  <span className="game-icon">🎰</span>
+                  <span className="game-name">Відеослот</span>
+                </div>
+                <Link to="/dashboard/videoslot" className="game-btn">
+                  Грати
+                </Link>
+              </div>
             </div>
           </div>
 

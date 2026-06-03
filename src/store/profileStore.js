@@ -10,6 +10,7 @@ import {
   createUserAddress,
   updateUserAddress,
 } from "../api/profileApi";
+import { getMyWallets } from "../api/walletsApi";
 
 export const profileStore = create((set) => ({
   avatar: null,
@@ -24,6 +25,17 @@ export const profileStore = create((set) => ({
       set({ avatar: profile.avatar, wallets });
     } catch (err) {
       console.error("Помилка при отриманні профілю:", err);
+    }
+  },
+
+  // оновлення тільки гаманців
+  fetchWallets: async () => {
+    try {
+      const wallets = await getMyWallets();
+      set({ wallets });
+      return wallets;
+    } catch (err) {
+      console.error("Помилка при отриманні гаманців:", err);
     }
   },
 

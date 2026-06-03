@@ -1,0 +1,163 @@
+/* =========================
+   PAGE WRAPPER
+========================= */
+
+.roulette-multi-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* =========================
+   CONTAINER (як у тебе було)
+========================= */
+
+.roulette-multi-container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.roulette-multi-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.roulette-multi-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #222;
+  margin: 0;
+}
+
+/* =========================
+   WALLET
+========================= */
+
+.roulette-multi-wallets {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.roulette-multi-wallet-item {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* =========================
+   SUBTITLE
+========================= */
+
+.roulette-multi-subtitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+/* =========================
+   ROOMS LIST
+========================= */
+
+.roulette-multi-rooms {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ROOM ROW */
+
+.roulette-multi-room-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ROOM BUTTON */
+
+.roulette-multi-room-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  background: #f9fafb;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  transition: all 0.2s ease;
+}
+
+.roulette-multi-room-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.roulette-multi-room-btn.active {
+  border: 1px solid #00c853;
+  background: #e8f5e9;
+}
+
+/* LEAVE BTN */
+
+.roulette-multi-leave-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  background: #d32f2f;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.roulette-multi-leave-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-2px);
+}
+
+/* EMPTY */
+
+.roulette-multi-empty {
+  color: #777;
+  font-size: 14px;
+}
+
+/* CURRENT ROOM */
+
+.roulette-multi-current {
+  font-weight: 700;
+  color: #222;
+}

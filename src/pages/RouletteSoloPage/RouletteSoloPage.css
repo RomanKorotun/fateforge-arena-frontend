@@ -85,7 +85,7 @@
   color: #222;
 }
 
-.wallet-item-block {
+.roulette-wallet-item {
   background: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -194,7 +194,6 @@
 .roulette-back-row {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 20px;
 }
 
 .back-btn {

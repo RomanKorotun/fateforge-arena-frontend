@@ -17,20 +17,53 @@ import NotFoundPage from "./pages/NotFoundPage";
 import BlockedPage from "./pages/BlockedPage/BlockedPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import DataDeletionPolicyPage from "./pages/DataDeletionPolicyPage/DataDeletionPolicyPage";
-import RoulettePage from "./pages/RoulettePage/RoulettePage";
+import RouletteSoloPage from "./pages/RouletteSoloPage/RouletteSoloPage";
 import CreateRouletteGamePage from "./pages/CreateRouletteGamePage/CreateRouletteGamePage";
 import ConfirmEmailPage from "./pages/ConfirmEmailPage/ConfirmEmailPage";
+// import RouletteMultiPage from "./pages/RouletteMultiPage/RouletteMultiPage";
+// import JoinRouletteGamePage from "./pages/JoinRouletteGamePage/JoinRouletteGamePage";
+import VideoslotPage from "./pages/VideoslotPage/VideoslotPage";
+import CreateVideoslotGamePage from "./pages/CreateVideoslotGamePage/CreateVideoslotGamePage";
+import GetHistoryVideoslotGamePage from "./pages/GetHistoryVideoslotGamePage/GetHistoryVideoslotGamePage";
 
 import { authStore } from "./store/authStore";
 
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
 import GuestRoute from "./routes/GuestRoute";
+// import { rouletteSocket } from "./socket/rouletteSocket";
 
 const App = () => {
   const fetchMe = authStore((s) => s.fetchMe);
   const loading = authStore((s) => s.loading);
   const user = authStore((s) => s.user);
+
+  // useEffect(() => {
+  //   rouletteSocket.connect();
+
+  //   const onConnect = () => {
+  //     console.log("SOCKET CONNECTED:", rouletteSocket.id);
+  //   };
+
+  //   const onDisconnect = () => {
+  //     console.log("SOCKET DISCONNECTED");
+  //   };
+
+  //   const onError = (err) => {
+  //     console.log("SOCKET ERROR:", err.message);
+  //   };
+
+  //   rouletteSocket.on("connect", onConnect);
+  //   rouletteSocket.on("disconnect", onDisconnect);
+  //   rouletteSocket.on("connect_error", onError);
+
+  //   return () => {
+  //     rouletteSocket.off("connect", onConnect);
+  //     rouletteSocket.off("disconnect", onDisconnect);
+  //     rouletteSocket.off("connect_error", onError);
+  //     rouletteSocket.disconnect();
+  //   };
+  // }, []);
 
   useEffect(() => {
     fetchMe();
@@ -74,11 +107,28 @@ const App = () => {
               path="dashboard/transactions"
               element={<TransactionsPage />}
             />
-            <Route path="dashboard/roulette" element={<RoulettePage />} />
+            <Route path="dashboard/roulette" element={<RouletteSoloPage />} />
             <Route
               path="dashboard/roulette/game/:sessionId"
               element={<CreateRouletteGamePage />}
             />
+            <Route path="dashboard/videoslot" element={<VideoslotPage />} />
+            <Route
+              path="dashboard/videoslot/game/:gameId"
+              element={<CreateVideoslotGamePage />}
+            />
+            <Route
+              path="dashboard/videoslot/history"
+              element={<GetHistoryVideoslotGamePage />}
+            />
+            {/* <Route
+              path="dashboard/roulette-multi"
+              element={<RouletteMultiPage />}
+            />
+            <Route
+              path="dashboard/roulette/game-multi/:roomId"
+              element={<JoinRouletteGamePage />}
+            /> */}
           </Route>
 
           {/* ADMIN */}

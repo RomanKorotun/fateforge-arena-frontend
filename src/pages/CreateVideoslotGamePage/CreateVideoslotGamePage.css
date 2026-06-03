@@ -1,0 +1,235 @@
+/* ================================================================================== */
+
+.slot {
+  /* height: 100vh; */
+  width: 100vw;
+  background: radial-gradient(circle, #141421, #050508);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.topbar {
+  color: gold;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.controlRow {
+  display: flex;
+  gap: 16px;
+}
+
+.walletBox,
+.betBox {
+  background: #151520;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #2a2a3a;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 160px;
+}
+
+.label {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.input {
+  background: #222;
+  color: white;
+  border: 1px solid #333;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+/* MACHINE */
+.machineWrapper {
+  position: relative;
+}
+
+.machine {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  border: 2px solid gold;
+  border-radius: 12px;
+  background: #111;
+}
+
+.viewport {
+  width: 100px;
+  height: 180px;
+  overflow: hidden;
+}
+
+.strip {
+  display: flex;
+  flex-direction: column;
+}
+
+.cell {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.winCell {
+  background: rgba(255, 215, 0, 0.25);
+  box-shadow: 0 0 12px gold;
+}
+
+/* RESULT — LOWERED + NO SHIFT */
+.resultBox {
+  height: 20px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.resultInner {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.resultInner.show {
+  opacity: 1;
+}
+
+.lineInfo {
+  color: gold;
+  font-weight: bold;
+}
+
+.lineHint {
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* OVERLAY */
+.paylineOverlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 550px;
+  height: 180px;
+  pointer-events: none;
+}
+
+/* PAYLINES */
+.paylinesPanel {
+  width: 700px;
+  background: #111;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.paylinesTitle {
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.paylinesGrid {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 6px;
+}
+
+.paylineBox {
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  background: #1c1c28;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.paylineBox.active {
+  background: gold;
+  color: black;
+}
+
+/* BUTTONS */
+.paylinesActions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #222;
+  color: white;
+}
+
+.spin {
+  cursor: pointer;
+  padding: 10px 24px;
+  background: gold;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.winUnderButton {
+  min-height: 70px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  gap: 3px;
+  color: #00ff88;
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  padding: 12px 0;
+
+  position: sticky;
+  top: 0;
+
+  background: rgba(5, 5, 8, 0.85);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid #1f1f2a;
+
+  z-index: 1000;
+}
+
+/* ================================================================================== */

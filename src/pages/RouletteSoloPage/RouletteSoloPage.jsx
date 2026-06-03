@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./RoulettePage.css";
+import { toast } from "sonner";
+import "./RouletteSoloPage.css";
 
 import { rouletteStore } from "../../store/rouletteStore";
 import { profileStore } from "../../store/profileStore";
 
-const RoulettePage = () => {
+const RouletteSoloPage = () => {
   const navigate = useNavigate();
 
   // roulette
@@ -17,22 +18,22 @@ const RoulettePage = () => {
 
   // profile store
   const wallets = profileStore((s) => s.wallets);
-  const fetchProfile = profileStore((s) => s.fetchProfile);
+  const { fetchWallets } = profileStore();
 
-  // 🔥 GLOBAL SEED (з zustand)
+  // GLOBAL SEED (з zustand)
   const storeSeed = profileStore((s) => s.clientSeed);
   const updateSeed = profileStore((s) => s.updateSeed);
   const createSeed = profileStore((s) => s.createSeed);
   const fetchClientSeed = profileStore((s) => s.fetchClientSeed);
 
-  // 🔥 LOCAL INPUT STATE
+  // LOCAL INPUT STATE
   const [inputSeed, setInputSeed] = useState("");
 
   useEffect(() => {
     fetchSessions();
-    fetchProfile();
+    fetchWallets();
     fetchClientSeed(); // ⬅ важливо
-  }, [fetchSessions, fetchProfile, fetchClientSeed]);
+  }, [fetchSessions, fetchWallets, fetchClientSeed]);
 
   // ===== GAME =====
   const handleCreateGame = async () => {
@@ -41,6 +42,10 @@ const RoulettePage = () => {
       setSession(session);
       navigate(`/dashboard/roulette/game/${session.sessionId}`);
     } catch (e) {
+      toast.warning(
+        "У вас уже є активна ігрова сесія. Завершіть її перед створенням нової.",
+        { duration: 5000 },
+      );
       console.error("Create session error:", e);
     }
   };
@@ -72,6 +77,10 @@ const RoulettePage = () => {
 
       setInputSeed("");
     } catch (e) {
+      toast.warning(
+        "Неможливо змінити client seed під час активної ігрової сесії.",
+        { duration: 5000 },
+      );
       console.error("Seed error:", e);
     }
   };
@@ -83,8 +92,6 @@ const RoulettePage = () => {
   const handleBack = () => {
     navigate("/dashboard");
   };
-
-  console.log(storeSeed);
 
   return (
     <div className="roulette-page">
@@ -98,7 +105,7 @@ const RoulettePage = () => {
         <div className="roulette-card">
           {/* HEADER */}
           <div className="roulette-header">
-            <h1 className="roulette-title">🎰 Roulette Game</h1>
+            <h1 className="roulette-title">🎲 Roulette Game</h1>
 
             <div className="roulette-actions">
               <button
@@ -125,7 +132,7 @@ const RoulettePage = () => {
               <span className="wallets-text">
                 Мої Гаманці:
                 {wallets.map((w) => (
-                  <span key={w.id} className="wallet-item-block">
+                  <span key={w.id} className="roulette-wallet-item">
                     {w.balance} {w.currency}
                   </span>
                 ))}
@@ -189,4 +196,4 @@ const RoulettePage = () => {
   );
 };
 
-export default RoulettePage;
+export default RouletteSoloPage;
