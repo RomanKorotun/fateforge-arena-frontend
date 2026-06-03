@@ -42,11 +42,9 @@ const RouletteSoloPage = () => {
       setSession(session);
       navigate(`/dashboard/roulette/game/${session.sessionId}`);
     } catch (e) {
-      toast.warning(
-        "У вас уже є активна ігрова сесія. Завершіть її перед створенням нової.",
-        { duration: 5000 },
-      );
-      console.error("Create session error:", e);
+      const message = e?.response?.data?.message || "Невідома помилка";
+      toast.error(message, { duration: 5000 });
+      console.error("API error:", e?.response?.data);
     }
   };
 
