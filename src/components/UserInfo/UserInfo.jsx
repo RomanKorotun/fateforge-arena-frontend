@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 
+import { chatSocket } from "../../socket/socket";
+
 import { authStore } from "../../store/authStore";
 import { profileStore } from "../../store/profileStore";
 import "./UserInfo.css";
@@ -40,6 +42,7 @@ const UserInfo = () => {
 
   const handleLogout = async () => {
     try {
+      chatSocket.emit("room:leave", { room: "global" });
       await logoutUser();
       navigate("/signin");
     } catch (err) {

@@ -31,37 +31,39 @@ import { authStore } from "./store/authStore";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
 import GuestRoute from "./routes/GuestRoute";
-// import { rouletteSocket } from "./socket/rouletteSocket";
+import { chatSocket } from "./socket/socket";
 
 const App = () => {
   const fetchMe = authStore((s) => s.fetchMe);
   const loading = authStore((s) => s.loading);
   const user = authStore((s) => s.user);
 
-  // useEffect(() => {
-  //   rouletteSocket.connect();
+  useEffect(() => {
+    chatSocket.connect();
 
+    return () => {
+      chatSocket.disconnect();
+    };
+  }, []);
+
+  // useEffect(() => {
   //   const onConnect = () => {
-  //     console.log("SOCKET CONNECTED:", rouletteSocket.id);
+  //     console.log("🟢 socket connected:", chatSocket.id);
   //   };
 
   //   const onDisconnect = () => {
-  //     console.log("SOCKET DISCONNECTED");
+  //     console.log("🔴 socket disconnected");
   //   };
 
-  //   const onError = (err) => {
-  //     console.log("SOCKET ERROR:", err.message);
-  //   };
+  //   chatSocket.on("connect", onConnect);
+  //   chatSocket.on("disconnect", onDisconnect);
 
-  //   rouletteSocket.on("connect", onConnect);
-  //   rouletteSocket.on("disconnect", onDisconnect);
-  //   rouletteSocket.on("connect_error", onError);
+  //   chatSocket.connect();
 
   //   return () => {
-  //     rouletteSocket.off("connect", onConnect);
-  //     rouletteSocket.off("disconnect", onDisconnect);
-  //     rouletteSocket.off("connect_error", onError);
-  //     rouletteSocket.disconnect();
+  //     chatSocket.off("connect", onConnect);
+  //     chatSocket.off("disconnect", onDisconnect);
+  //     chatSocket.disconnect();
   //   };
   // }, []);
 

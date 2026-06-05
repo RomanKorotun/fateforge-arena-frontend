@@ -1,22 +1,130 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import UserHeader from "../../components/UserHeader/UserHeader";
 import DepositModal from "../../components/DepositModal/DepositModal";
+
 import { profileStore } from "../../store/profileStore";
+import { chatSocket } from "../../socket/socket";
 
 import "./DashboardPage.css";
+import { authStore } from "../../store/authStore";
 
 const DashboardPage = () => {
   const wallets = profileStore((state) => state.wallets);
   const { fetchProfile } = profileStore();
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const [provider, setProvider] = useState("LIQPAY");
   const [selectedWalletId, setSelectedWalletId] = useState(null);
 
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+  const messagesEndRef = useRef(null);
+
+  const user = authStore((s) => s.user);
+
+  console.log(onlineUsers);
+
   useEffect(() => {
     fetchProfile();
+  }, [fetchProfile]);
+
+  useEffect(() => {
+    chatSocket.emit("room:join", { room: "global" });
+  }, []);
+
+  useEffect(() => {
+    const onInit = (msgs) => setMessages(msgs);
+    const onMessage = (msg) => setMessages((prev) => [...prev, msg]);
+    const onUsers = (users) => setOnlineUsers(users);
+
+    chatSocket.on("chat:init", onInit);
+    chatSocket.on("message:new", onMessage);
+    chatSocket.on("room:users", onUsers);
+
+    return () => {
+      chatSocket.off("chat:init", onInit);
+      chatSocket.off("message:new", onMessage);
+      chatSocket.off("room:users", onUsers);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      chatSocket.emit("room:leave", { room: "global" });
+    };
+  }, []);
+
+  const sendMessage = () => {
+    const text = message.trim();
+    if (!text) return;
+
+    chatSocket.emit("message:send", {
+      room: "global",
+      content: text,
+    });
+
+    setMessage("");
+  };
+
+  // useEffect(() => {
+  //   const socket = chatSocket;
+
+  //   const handleConnect = () => {
+  //     console.log("CONNECTED:", socket.id);
+  //     socket.emit("room:join", { room: "global" });
+  //   };
+
+  //   const handleInit = (msgs) => {
+  //     setMessages(msgs);
+  //   };
+
+  //   const handleMessage = (msg) => {
+  //     setMessages((prev) => [...prev, msg]);
+  //   };
+
+  //   const handleUsers = (users) => {
+  //     setOnlineUsers(users);
+  //   };
+
+  //   socket.on("connect", handleConnect);
+  //   socket.on("chat:init", handleInit);
+  //   socket.on("message:new", handleMessage);
+  //   socket.on("room:users", handleUsers);
+
+  //   if (!socket.connected) {
+  //     socket.connect();
+  //   } else {
+  //     socket.emit("room:join", { room: "global" });
+  //   }
+
+  //   return () => {
+  //     socket.emit("room:leave", { room: "global" });
+  //     socket.off("connect", handleConnect);
+  //     socket.off("chat:init", handleInit);
+  //     socket.off("message:new", handleMessage);
+  //     socket.off("room:users", handleUsers);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    const socket = chatSocket;
+
+    const handleLeave = () => {
+      socket.emit("room:leave", { room: "global" });
+    };
+
+    const handleUnload = () => {
+      handleLeave();
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
   }, []);
 
   const openDeposit = (p, walletId) => {
@@ -24,6 +132,20 @@ const DashboardPage = () => {
     setSelectedWalletId(walletId);
     setIsDepositOpen(true);
   };
+
+  useEffect(() => {
+    const container = document.querySelector(".chat-messages");
+    if (!container) return;
+    container.scrollTop = container.scrollHeight;
+  }, [messages]);
+
+  useEffect(() => {
+    const container = document.querySelector(".chat-messages");
+    if (!container) return;
+    setTimeout(() => {
+      container.scrollTop = container.scrollHeight;
+    }, 0);
+  }, []);
 
   return (
     <div className="dashboard-page">
@@ -40,15 +162,18 @@ const DashboardPage = () => {
                   <span className="game-icon">🎲</span>
                   <span className="game-name">Рулетка</span>
                 </div>
+
                 <Link to="/dashboard/roulette" className="game-btn">
                   Грати
                 </Link>
               </div>
+
               <div className="game-item">
                 <div className="game-info">
                   <span className="game-icon">🎰</span>
                   <span className="game-name">Відеослот</span>
                 </div>
+
                 <Link to="/dashboard/videoslot" className="game-btn">
                   Грати
                 </Link>
@@ -85,6 +210,88 @@ const DashboardPage = () => {
             )}
           </div>
         </div>
+
+        {/* CHAT SECTION */}
+        <div className="chat-section">
+          <div className="chat-layout">
+            {/* USERS */}
+            <div className="chat-users">
+              <div className="chat-users-title">
+                Online ({onlineUsers.length})
+              </div>
+
+              {/* 🔥 wrapper для spacing */}
+              <div className="chat-users-list">
+                {onlineUsers.map((u, i) => (
+                  <div key={i} className="chat-user-item">
+                    <span className="dot" />
+                    {u.username || u}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CHAT */}
+            <div className="chat-card">
+              <div className="chat-messages">
+                {messages.map((msg, i) => {
+                  const mine = msg.senderId === user?.id;
+
+                  // const time = msg.createdAt
+                  //   ? new Date(msg.createdAt).toLocaleTimeString([], {
+                  //       hour: "2-digit",
+                  //       minute: "2-digit",
+                  //     })
+                  //   : "";
+
+                  const dateTime = msg.createdAt
+                    ? new Date(msg.createdAt).toLocaleString("uk-UA", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : "";
+
+                  return (
+                    <div
+                      key={msg.id ?? i}
+                      className={`msg-row ${mine ? "mine" : ""}`}
+                    >
+                      <div className={`msg-bubble ${mine ? "mine" : ""}`}>
+                        <div className="msg-top">
+                          <span className="msg-name">
+                            {mine ? "You" : msg.username}
+                          </span>
+
+                          <span className="msg-spacer" />
+
+                          <span className="msg-time">{dateTime}</span>
+                        </div>
+
+                        <div className="msg-text">{msg.content}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                <div ref={messagesEndRef} />
+              </div>
+
+              <div className="chat-input">
+                <input
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                  placeholder="Message..."
+                />
+
+                <button onClick={sendMessage}>Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <DepositModal
@@ -99,3 +306,5 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+
+//=============================================
