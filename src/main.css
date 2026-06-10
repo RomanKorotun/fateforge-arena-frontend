@@ -3,10 +3,21 @@
 }
 
 html,
-body {
+body,
+#root {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+}
+
+#root {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
+    url("/hero.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }

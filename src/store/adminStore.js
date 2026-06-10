@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { updateUserStatus, getUsers } from "../api/adminApi";
+import { banUser, getUsers, unbanUser } from "../api/adminApi";
 
 export const adminStore = create((set) => ({
   users: [],
@@ -14,16 +14,41 @@ export const adminStore = create((set) => ({
     }
   },
 
-  // змінити статус (локально оновлюємо тільки status)
-  updateStatus: async (userId, status) => {
+  banUser: async (id, banEndAt) => {
     try {
-      await updateUserStatus(userId, status);
+      const updated = await banUser(id, banEndAt);
+
       set((state) => ({
-        users: state.users.map((u) => (u.id === userId ? { ...u, status } : u)),
+        users: state.users.map((u) =>
+          u.id === id
+            ? {
+                ...u,
+                ...updated,
+              }
+            : u,
+        ),
       }));
     } catch (err) {
-      console.error("Update status error:", err);
-      throw err;
+      console.error("Ban error:", err);
+    }
+  },
+
+  unbanUser: async (id) => {
+    try {
+      const updated = await unbanUser(id);
+
+      set((state) => ({
+        users: state.users.map((u) =>
+          u.id === id
+            ? {
+                ...u,
+                ...updated,
+              }
+            : u,
+        ),
+      }));
+    } catch (err) {
+      console.error("Unban error:", err);
     }
   },
 }));

@@ -47,3 +47,18 @@ export const deleteMyAccount = async () => {
   const { data } = await apiClient.delete("/auth/me");
   return data;
 };
+
+// повторна відправка листа для підтвердження пошти
+export const resendVerificationEmail = async (body) => {
+  const { data } = await apiClient.post(
+    "/auth/email-verification/resend",
+    body,
+  );
+  return data;
+};
+
+// відновлення видаленого акаунта
+export const restoreAccount = async (body) => {
+  const { data } = await apiClient.post("/auth/restore", body);
+  return data;
+};

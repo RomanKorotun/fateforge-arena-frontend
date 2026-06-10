@@ -25,26 +25,45 @@ import ConfirmEmailPage from "./pages/ConfirmEmailPage/ConfirmEmailPage";
 import VideoslotPage from "./pages/VideoslotPage/VideoslotPage";
 import CreateVideoslotGamePage from "./pages/CreateVideoslotGamePage/CreateVideoslotGamePage";
 import GetHistoryVideoslotGamePage from "./pages/GetHistoryVideoslotGamePage/GetHistoryVideoslotGamePage";
+import BattlePage from "./pages/BattlePage/BattlePage";
+import BattleLeaderBoardPage from "./pages/BattleLeaderBoardPage/BattleLeaderBoardPage";
+
+import ResendVerificationEmailPage from "./pages/ResendVerificationEmailPage/ResendVerificationEmailPage";
+import RestoreAccountPage from "./pages/RestoreAccountPage/RestoreAccountPage";
 
 import { authStore } from "./store/authStore";
 
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
 import GuestRoute from "./routes/GuestRoute";
-import { chatSocket } from "./socket/socket";
+import { chatSocket } from "./socket/chatSocket";
+import { battleSocket } from "./socket/battleSocket";
 
 const App = () => {
   const fetchMe = authStore((s) => s.fetchMe);
   const loading = authStore((s) => s.loading);
   const user = authStore((s) => s.user);
 
+  // useEffect(() => {
+  //   chatSocket.connect();
+  //   battleSocket.connect();
+
+  //   return () => {
+  //     chatSocket.disconnect();
+  //     battleSocket.disconnect();
+  //   };
+  // }, []);
   useEffect(() => {
+    if (!user) return;
+
     chatSocket.connect();
+    battleSocket.connect();
 
     return () => {
       chatSocket.disconnect();
+      battleSocket.disconnect();
     };
-  }, []);
+  }, [user]);
 
   // useEffect(() => {
   //   const onConnect = () => {
@@ -99,6 +118,11 @@ const App = () => {
           <Route element={<GuestRoute />}>
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="restore" element={<RestoreAccountPage />} />
+            <Route
+              path="resend-verification"
+              element={<ResendVerificationEmailPage />}
+            />
           </Route>
 
           {/* USER */}
@@ -123,14 +147,11 @@ const App = () => {
               path="dashboard/videoslot/history"
               element={<GetHistoryVideoslotGamePage />}
             />
-            {/* <Route
-              path="dashboard/roulette-multi"
-              element={<RouletteMultiPage />}
-            />
+            <Route path="dashboard/battle" element={<BattlePage />} />
             <Route
-              path="dashboard/roulette/game-multi/:roomId"
-              element={<JoinRouletteGamePage />}
-            /> */}
+              path="dashboard/battle/rating"
+              element={<BattleLeaderBoardPage />}
+            />
           </Route>
 
           {/* ADMIN */}

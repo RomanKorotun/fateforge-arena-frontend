@@ -11,6 +11,7 @@ const BlockedPage = () => {
         <h1>🚫 Ваш акаунт заблоковано</h1>
 
         <p>Зверніться до служби підтримки.</p>
+        <p>roman.korotun@ukr.net</p>
 
         <button onClick={() => navigate("/")}>Повернутися на головну</button>
       </div>

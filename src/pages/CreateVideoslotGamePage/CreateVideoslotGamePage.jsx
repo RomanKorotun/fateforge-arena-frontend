@@ -438,6 +438,11 @@ export default function CreateVideoslotGamePage() {
 
   /* ================= SPIN ================= */
   const spin = async () => {
+    if (Number(sessionWallet?.balance) < Number(bet)) {
+      toast.error("Недостатньо коштів");
+      return;
+    }
+
     if (spinning) return;
 
     const betNumber = Number(bet);

@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 
-import { chatSocket } from "../../socket/socket";
+import { chatSocket } from "../../socket/chatSocket";
 
 import { authStore } from "../../store/authStore";
 import { profileStore } from "../../store/profileStore";
 import "./UserInfo.css";
+import { ROLES } from "../../constants/roles";
 
 const BACKEND_URL_AVATAR = import.meta.env.VITE_API_URL_AVATAR;
 
 const UserInfo = () => {
   const user = authStore((state) => state.user);
+  console.log(user);
   const { logoutUser } = authStore();
 
   const avatar = profileStore((state) => state.avatar);
@@ -102,9 +104,11 @@ const UserInfo = () => {
             Налаштування
           </button>
 
-          <button className="settings-btn" onClick={handleTransactions}>
-            Транзакції
-          </button>
+          {user?.role === ROLES.USER && (
+            <button className="settings-btn" onClick={handleTransactions}>
+              Транзакції
+            </button>
+          )}
 
           <button className="logout-btn" onClick={handleLogout}>
             Вийти

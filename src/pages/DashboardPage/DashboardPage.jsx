@@ -5,7 +5,7 @@ import UserHeader from "../../components/UserHeader/UserHeader";
 import DepositModal from "../../components/DepositModal/DepositModal";
 
 import { profileStore } from "../../store/profileStore";
-import { chatSocket } from "../../socket/socket";
+import { chatSocket } from "../../socket/chatSocket";
 
 import "./DashboardPage.css";
 import { authStore } from "../../store/authStore";
@@ -68,46 +68,6 @@ const DashboardPage = () => {
 
     setMessage("");
   };
-
-  // useEffect(() => {
-  //   const socket = chatSocket;
-
-  //   const handleConnect = () => {
-  //     console.log("CONNECTED:", socket.id);
-  //     socket.emit("room:join", { room: "global" });
-  //   };
-
-  //   const handleInit = (msgs) => {
-  //     setMessages(msgs);
-  //   };
-
-  //   const handleMessage = (msg) => {
-  //     setMessages((prev) => [...prev, msg]);
-  //   };
-
-  //   const handleUsers = (users) => {
-  //     setOnlineUsers(users);
-  //   };
-
-  //   socket.on("connect", handleConnect);
-  //   socket.on("chat:init", handleInit);
-  //   socket.on("message:new", handleMessage);
-  //   socket.on("room:users", handleUsers);
-
-  //   if (!socket.connected) {
-  //     socket.connect();
-  //   } else {
-  //     socket.emit("room:join", { room: "global" });
-  //   }
-
-  //   return () => {
-  //     socket.emit("room:leave", { room: "global" });
-  //     socket.off("connect", handleConnect);
-  //     socket.off("chat:init", handleInit);
-  //     socket.off("message:new", handleMessage);
-  //     socket.off("room:users", handleUsers);
-  //   };
-  // }, []);
 
   useEffect(() => {
     const socket = chatSocket;
@@ -178,6 +138,17 @@ const DashboardPage = () => {
                   Грати
                 </Link>
               </div>
+
+              <div className="game-item">
+                <div className="game-info">
+                  <span className="game-icon">⚔️</span>
+                  <span className="game-name">Battle Arena</span>
+                </div>
+
+                <Link to="/dashboard/battle" className="game-btn">
+                  Грати
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -236,13 +207,6 @@ const DashboardPage = () => {
               <div className="chat-messages">
                 {messages.map((msg, i) => {
                   const mine = msg.senderId === user?.id;
-
-                  // const time = msg.createdAt
-                  //   ? new Date(msg.createdAt).toLocaleTimeString([], {
-                  //       hour: "2-digit",
-                  //       minute: "2-digit",
-                  //     })
-                  //   : "";
 
                   const dateTime = msg.createdAt
                     ? new Date(msg.createdAt).toLocaleString("uk-UA", {

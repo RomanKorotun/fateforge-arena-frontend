@@ -8,13 +8,13 @@ import "./OAuthSuccessPage.css";
 
 const OAuthSuccessPage = () => {
   const navigate = useNavigate();
-
-  const { fetchCurrentUser } = authStore();
+  const fetchMe = authStore((s) => s.fetchMe);
 
   useEffect(() => {
     const handleAuth = async () => {
       try {
-        const user = await fetchCurrentUser();
+        const user = await fetchMe();
+        console.log(user);
 
         if (!user) {
           navigate("/signin");
@@ -32,7 +32,7 @@ const OAuthSuccessPage = () => {
     };
 
     handleAuth();
-  }, [navigate, fetchCurrentUser]);
+  }, [navigate, fetchMe]);
 
   return (
     <div className="oauth-success">

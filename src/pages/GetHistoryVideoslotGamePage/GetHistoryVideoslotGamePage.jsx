@@ -154,7 +154,7 @@ const GetHistoryVideoslotGamePage = () => {
                 ) : (
                   <tr>
                     <td colSpan="6" className="vsh-empty">
-                      No history
+                      No history found
                     </td>
                   </tr>
                 )}
@@ -162,25 +162,27 @@ const GetHistoryVideoslotGamePage = () => {
             </table>
           </div>
 
-          <div className="vsh-pagination">
-            <button
-              disabled={!pagination?.hasPrevPage}
-              onClick={() => changePage(pagination.page - 1)}
-            >
-              Prev
-            </button>
+          {pagination?.totalItems > 0 && (
+            <div className="vsh-pagination">
+              <button
+                disabled={!pagination?.hasPrevPage}
+                onClick={() => changePage(pagination.page - 1)}
+              >
+                Prev
+              </button>
 
-            <span>
-              {pagination?.page} / {pagination?.totalPages}
-            </span>
+              <span>
+                {pagination?.page} / {pagination?.totalPages}
+              </span>
 
-            <button
-              disabled={!pagination?.hasNextPage}
-              onClick={() => changePage(pagination.page + 1)}
-            >
-              Next
-            </button>
-          </div>
+              <button
+                disabled={!pagination?.hasNextPage}
+                onClick={() => changePage(pagination.page + 1)}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

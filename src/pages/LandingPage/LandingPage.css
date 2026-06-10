@@ -56,6 +56,7 @@
 }
 .discord-btn {
   background: #5865f2;
+  margin-bottom: 14px;
 }
 
 .auth-btn:hover {
@@ -63,13 +64,21 @@
   opacity: 0.9;
 }
 
-.auth-legal {
+/* .auth-legal {
   display: flex;
   flex-direction: column;
   font-size: 12px;
   display: flex;
   color: #9ca3af;
   align-items: center;
+} */
+
+.auth-legal {
+  /* margin-top: 14px; */
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
 }
 
 .auth-legal button {
@@ -79,6 +88,29 @@
   cursor: pointer;
   text-decoration: underline;
   font-size: 12px;
+}
+
+/* .auth-legal button {
+  background: none;
+  border: none;
+
+  color: rgba(17, 24, 39, 0.65);
+
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 12px;
+
+  transition: 0.2s ease;
+} */
+
+/* .auth-legal button:hover {
+  color: rgba(17, 24, 39, 0.95);
+} */
+
+.auth-legal p {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
 }
 
 .auth-legal button:hover {
