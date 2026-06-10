@@ -13,7 +13,7 @@ const BattlePage = () => {
 
   const [activeBattle, setActiveBattle] = useState(null);
   const [roundTimer, setRoundTimer] = useState(0);
-  const [battleTimer, setBattleTimer] = useState(0);
+  // const [battleTimer, setBattleTimer] = useState(0);
   const [attack, setAttack] = useState(null);
   const [defense, setDefense] = useState(null);
   const [players, setPlayers] = useState([]);
@@ -81,7 +81,7 @@ const BattlePage = () => {
       if (battle.status === "finished") {
         setBattles((prev) => prev.filter((b) => b.id !== battle.id));
         setRoundTimer(0);
-        setBattleTimer(0);
+        // setBattleTimer(0);
       }
       setActiveBattle(battle);
     };
@@ -141,7 +141,7 @@ const BattlePage = () => {
       if (data.battleId !== activeBattle.id) return;
 
       setRoundTimer(Math.ceil(data.roundLeft / 1000));
-      setBattleTimer(Math.ceil(data.battleLeft / 1000));
+      // setBattleTimer(Math.ceil(data.battleLeft / 1000));
     };
 
     battleSocket.on("battle:timer", onTimer);
@@ -310,8 +310,10 @@ const BattlePage = () => {
                   </div>
 
                   <div className="arena-timers">
-                    <div>⏱ Battle: {battleTimer}s</div>
-                    <div>⏱ Round: {roundTimer}s</div>
+                    {/* <div>⏱ Battle: {battleTimer}s</div> */}
+                    {/* <div>⏱ Round: {roundTimer}s</div> */}
+                    <div>⚔ Round: {activeBattle.currentRound}</div>
+                    <div>⏱ Time: {roundTimer}s</div>
                   </div>
 
                   <div className="fighter-card">
